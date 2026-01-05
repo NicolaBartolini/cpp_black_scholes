@@ -7,7 +7,7 @@ protected:
     double strike;
     double time2maturity;
 public:
-    // european_option(); // default constructor (it's a virtual class)
+    // european_option(); // default constructor (it's a virtual class, so no default constructor)
     european_option(double strike, double time2maturity); // constructor
     european_option(const european_option& option); // copy constructor 
     virtual ~european_option(); // destructor
@@ -47,5 +47,52 @@ public:
     // Member functions
     double payoff(double S_T) const override; // Payoff function
 };
+
+// Class for the European Call Cash or Nothing (CoN) option
+// It is an option that  pays at maturity a specified amount of of money Q if the price of the underlying is above the strike
+class EuroCallCoN : public european_option
+{
+    double Q;
+public:
+    // using european_option::european_option;
+    EuroCallCoN(); // default constructor
+    EuroCallCoN(double strike, double time2maturity, double Q); // constructor
+    EuroCallCoN(const EuroCallCoN& option); // copy constructor
+    // ~EuroCallCoN();
+    double get_Q() const;
+    double payoff(double S_T) const override;
+};
+
+// Class for the European Put Cash or Nothing (CoN) option
+// It is an option that  pays at maturity a specified amount of of money Q if the price of the underlying is below the strike
+class EuroPutCoN : public european_option
+{
+    double Q;
+public:
+    EuroPutCoN(); // default constructor
+    EuroPutCoN(double strike, double time2maturity, double Q); // constructor
+    EuroPutCoN(const EuroPutCoN& option); // copy constructor
+    // members
+    double get_Q() const;
+    double payoff(double S_T) const override;
+};
+
+// Asset or nothing options (AoN)
+
+class EuroCallAoN : public european_option
+{
+public:
+    using european_option::european_option;
+    double payoff(double S_T) const override;
+};
+
+
+class EuroPutAoN : public european_option
+{
+public:
+    using european_option::european_option;
+    double payoff(double S_T) const override;
+};
+
 
 #endif 

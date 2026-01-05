@@ -42,3 +42,68 @@ double EuroPut::payoff(double S_T) const {
     return std::max(K-S_T, 0.0);
 }
 
+// Digital options 
+
+// Default constructor EuroCallCoN
+EuroCallCoN::EuroCallCoN() : european_option(0.0, 0.0), Q(0.0) {}
+// constructor EuroCallCoN
+EuroCallCoN::EuroCallCoN(double strike, double time2maturity, double Q) : european_option(strike, time2maturity), Q(Q) {}
+// copy constructor EuroCallCoN
+EuroCallCoN::EuroCallCoN(const EuroCallCoN& option) : european_option(option), Q(option.Q) {}
+
+double EuroCallCoN::get_Q() const {
+    return Q;
+}
+
+double EuroCallCoN::payoff(double S_T) const {
+    double K = strike;
+    if (S_T>K){
+        return Q;
+    }
+    else {
+        return 0.0;
+    }
+}
+
+// Default constructor EuroPutCoN
+EuroPutCoN::EuroPutCoN() : european_option(0.0, 0.0), Q(0.0) {}
+// constructor EuroPutCoN
+EuroPutCoN::EuroPutCoN(double strike, double time2maturity, double Q) : european_option(strike, time2maturity), Q(Q) {}
+// copy constructor EuroPutCoN
+EuroPutCoN::EuroPutCoN(const EuroPutCoN& option) : european_option(option), Q(option.Q) {}
+
+double EuroPutCoN::payoff(double S_T) const {
+    double K = strike;
+    if (K > S_T){
+        return Q;
+    }
+    else {
+        return 0.0;
+    }
+}
+
+double EuroPutCoN::get_Q() const {
+    return Q;
+}
+
+// Asset or nothing options
+
+double EuroCallAoN::payoff(double S_T) const {
+    double K = strike;
+    if (S_T>K){
+        return S_T;
+    }
+    else {
+        return 0.0;
+    }
+}
+
+double EuroPutAoN::payoff(double S_T) const {
+    double K = strike;
+    if (K > S_T){
+        return S_T;
+    }
+    else {
+        return 0.0;
+    }
+}

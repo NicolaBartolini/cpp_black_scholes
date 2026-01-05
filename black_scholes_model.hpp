@@ -13,7 +13,7 @@ class black_scholes_model{
         black_scholes_model(); // default constructor
         black_scholes_model(double mu, double sigma); // constructor
         black_scholes_model(const black_scholes_model& model); // copy constructor
-        ~black_scholes_model(); // destroyer
+        ~black_scholes_model(); // destructor
         //operators overloading
         black_scholes_model& operator  = (const black_scholes_model& model); // overloading the assigment operator (=)
         // MEMBER FUNCTIONS
