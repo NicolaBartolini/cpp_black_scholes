@@ -1,6 +1,10 @@
 #ifndef EUROPEAN_OPTION_HPP
 #define EUROPEAN_OPTION_HPP
 
+#include "Matrix.hpp"
+#include "black_scholes_model.hpp"
+#include <random>
+
 class european_option
 {
 protected:
@@ -18,6 +22,10 @@ public:
     double get_time2mat() const;
     virtual double payoff(double S_T) const = 0; // Payoff function 
     //(il const mi serve se voglio passare l'oggetto by reference in future funzioni, se non lo metto il pass by reference non compila)
+    // pricing 
+    virtual double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const = 0;
+    // simulate 
+    Matrix simulate(double S, const black_scholes_model& model, int n_steps, int N, std::mt19937& gen, double T=-1.0) const;
 };
 
 class EuroCall : public european_option
@@ -32,6 +40,8 @@ public:
     // EuroCall& operator = (const EuroCall& option); (Non mi serve ridefinirlo perché non fa nulla di speciale ed uso quello della classe madre, a meno che non aggiunga dati membro nella classe derivata, allora dovrei ridefinirlo)
     // Member functions
     double payoff(double S_T) const override; // Payoff function
+    // pricing 
+    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
 };
 
 class EuroPut : public european_option
@@ -46,6 +56,8 @@ public:
     // EuroPut& operator = (const EuroPut& option); (Non mi serve ridefinirlo perché non fa nulla di speciale ed uso quello della classe madre, a meno che non aggiunga dati membro nella classe derivata, allora dovrei ridefinirlo)
     // Member functions
     double payoff(double S_T) const override; // Payoff function
+    // pricing 
+    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
 };
 
 // Class for the European Call Cash or Nothing (CoN) option
@@ -61,6 +73,8 @@ public:
     // ~EuroCallCoN();
     double get_Q() const;
     double payoff(double S_T) const override;
+    // pricing 
+    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
 };
 
 // Class for the European Put Cash or Nothing (CoN) option
@@ -75,6 +89,8 @@ public:
     // members
     double get_Q() const;
     double payoff(double S_T) const override;
+    // pricing 
+    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
 };
 
 // Asset or nothing options (AoN)
@@ -84,6 +100,8 @@ class EuroCallAoN : public european_option
 public:
     using european_option::european_option;
     double payoff(double S_T) const override;
+    // pricing 
+    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
 };
 
 
@@ -92,6 +110,8 @@ class EuroPutAoN : public european_option
 public:
     using european_option::european_option;
     double payoff(double S_T) const override;
+    // pricing 
+    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
 };
 
 
