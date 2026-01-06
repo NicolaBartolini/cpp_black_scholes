@@ -3,13 +3,13 @@
 #include <iostream>
 #include <cstdlib>
 #include <stdexcept>
-
+#include <algorithm>
 
 // definition
 
 // constructors and destructor
 
-Matrix::Matrix() : n_cols(0), n_rows(0), elements(nullptr) {}
+Matrix::Matrix() : n_rows(0), n_cols(0), elements(nullptr) {}
 // elements(nullptr) means no memory is allocated yet for matrix data (it is a null pointer)
 
 // constructor that initializes matrix with given dimensions
@@ -379,4 +379,55 @@ Matrix Matrix::mean(int axis) {
     else{
         throw std::invalid_argument( "inputs only 0 (mean by row), 1 (mean by column)" );
     }
+}
+
+// Matrix Matrix::flatten() {
+//     Matrix M(1, n_rows*n_cols);
+//     int k = 0;
+//     for(int i=0; i<n_rows; i++){
+//         for(int j=0; j<n_cols; j++){
+//             M.set_element(M.get_element(i,j), 0, k);
+//             k++;
+//         }  
+//     }
+//     return M;
+// }
+
+Matrix Matrix::flatten() {
+    Matrix M(1, n_rows * n_cols);
+    int k = 0;
+    for (int i = 0; i < n_rows; i++) {
+        for (int j = 0; j < n_cols; j++) {
+            M.set_element(this->get_element(i, j), 0, k);
+            k++;
+        }
+    }
+    return M;
+}
+
+
+double Matrix::max() {
+    double x = elements[0];
+    int n = n_rows * n_cols;
+    for(int i=0; i<n; i++){
+        if (x<elements[i]){
+            x = elements[i];
+        }
+    }
+    return x;
+}
+
+double Matrix::min() {
+    double x = elements[0];
+    int n = n_rows * n_cols;
+    for(int i=0; i<n; i++){
+        if (x>elements[i]){
+            x = elements[i];
+        }
+    }
+    return x;
+}
+
+void Matrix::sort() {
+    std::sort(elements, elements + n_rows * n_cols);
 }

@@ -5,8 +5,8 @@
 #include <vector>
 
 class Matrix {
-    int n_cols; // number of columns
     int n_rows; // number of rows
+    int n_cols; // number of columns
     double* elements; // pointer to store matrix elements
 public:
     Matrix(); // default (no-argument) constructor
@@ -42,6 +42,10 @@ public:
     // Element operations
     double mean();
     Matrix mean(int axis);
+    Matrix flatten();
+    void sort();
+    double max();
+    double min();
 };
 
 #endif // MATRIX_HPP
