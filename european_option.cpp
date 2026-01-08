@@ -66,12 +66,7 @@ double EuroCall::payoff(double S_T) const {
 
 double EuroCall::black_scholes_price(double S, const black_scholes_model& model, double t) const {
     double price, K, T, r, sigma, d1, d2;
-    if (t==-1){
-        T = time2maturity;
-    }
-    else{
-        T = time2maturity-t; // Questo serve quando simulo per le misure di rischio 
-    }
+    T = time2maturity-t;
     
     K = strike;
     r = model.get_drift();
@@ -91,12 +86,7 @@ double EuroPut::payoff(double S_T) const {
 
 double EuroPut::black_scholes_price(double S, const black_scholes_model& model, double t) const {
     double price, K, T, r, sigma, d1, d2;
-    if (t==-1){
-        T = time2maturity;
-    }
-    else{
-        T = time2maturity-t; // Questo serve quando simulo per le misure di rischio 
-    }
+    T = time2maturity-t;
     
     K = strike;
     r = model.get_drift();
@@ -133,12 +123,8 @@ double EuroCallCoN::payoff(double S_T) const {
 
 double EuroCallCoN::black_scholes_price(double S, const black_scholes_model& model, double t) const {
     double price, K, T, r, sigma, d1, d2;
-    if (t==-1){
-        T = time2maturity;
-    }
-    else{
-        T = time2maturity-t; // Questo serve quando simulo per le misure di rischio 
-    }
+    
+    T = time2maturity-t;
     
     K = strike;
     r = model.get_drift();
@@ -173,12 +159,7 @@ double EuroPutCoN::get_Q() const {
 
 double EuroPutCoN::black_scholes_price(double S, const black_scholes_model& model, double t) const {
     double price, K, T, r, sigma, d1, d2;
-    if (t==-1){
-        T = time2maturity;
-    }
-    else{
-        T = time2maturity-t; // Questo serve quando simulo per le misure di rischio 
-    }
+    T = time2maturity-t;
     
     K = strike;
     r = model.get_drift();
@@ -204,12 +185,7 @@ double EuroCallAoN::payoff(double S_T) const {
 
 double EuroCallAoN::black_scholes_price(double S, const black_scholes_model& model, double t) const {
     double price, K, T, r, sigma, d1;
-    if (t==-1){
-        T = time2maturity;
-    }
-    else{
-        T = time2maturity-t; // Questo serve quando simulo per le misure di rischio 
-    }
+    T = time2maturity-t;
     
     K = strike;
     r = model.get_drift();
@@ -232,12 +208,7 @@ double EuroPutAoN::payoff(double S_T) const {
 
 double EuroPutAoN::black_scholes_price(double S, const black_scholes_model& model, double t) const {
     double price, K, T, r, sigma, d1;
-    if (t==-1){
-        T = time2maturity;
-    }
-    else{
-        T = time2maturity-t; // Questo serve quando simulo per le misure di rischio 
-    }
+    T = time2maturity-t;
     
     K = strike;
     r = model.get_drift();

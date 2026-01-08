@@ -23,9 +23,9 @@ public:
     virtual double payoff(double S_T) const = 0; // Payoff function 
     //(il const mi serve se voglio passare l'oggetto by reference in future funzioni, se non lo metto il pass by reference non compila)
     // pricing 
-    virtual double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const = 0;
+    virtual double black_scholes_price(double S, const black_scholes_model& model, double t=0.0) const = 0;
     // simulate 
-    Matrix simulate(double S, const black_scholes_model& model, int n_steps, int N, std::mt19937& gen, double T=-1.0) const;
+    Matrix simulate(double S, const black_scholes_model& model, int n_steps, int N, std::mt19937& gen, double t=0.0) const;
 };
 
 class EuroCall : public european_option
@@ -41,7 +41,7 @@ public:
     // Member functions
     double payoff(double S_T) const override; // Payoff function
     // pricing 
-    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
+    double black_scholes_price(double S, const black_scholes_model& model, double t=0.0) const override;
 };
 
 class EuroPut : public european_option
@@ -57,7 +57,7 @@ public:
     // Member functions
     double payoff(double S_T) const override; // Payoff function
     // pricing 
-    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
+    double black_scholes_price(double S, const black_scholes_model& model, double t=0.0) const override;
 };
 
 // Class for the European Call Cash or Nothing (CoN) option
@@ -74,7 +74,7 @@ public:
     double get_Q() const;
     double payoff(double S_T) const override;
     // pricing 
-    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
+    double black_scholes_price(double S, const black_scholes_model& model, double t=0.0) const override;
 };
 
 // Class for the European Put Cash or Nothing (CoN) option
@@ -90,7 +90,7 @@ public:
     double get_Q() const;
     double payoff(double S_T) const override;
     // pricing 
-    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
+    double black_scholes_price(double S, const black_scholes_model& model, double t=0.0) const override;
 };
 
 // Asset or nothing options (AoN)
@@ -101,7 +101,7 @@ public:
     using european_option::european_option;
     double payoff(double S_T) const override;
     // pricing 
-    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
+    double black_scholes_price(double S, const black_scholes_model& model, double t=0.0) const override;
 };
 
 
@@ -111,7 +111,7 @@ public:
     using european_option::european_option;
     double payoff(double S_T) const override;
     // pricing 
-    double black_scholes_price(double S, const black_scholes_model& model, double t=-1.0) const override;
+    double black_scholes_price(double S, const black_scholes_model& model, double t=0.0) const override;
 };
 
 

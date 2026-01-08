@@ -1,9 +1,11 @@
 #include <iostream>
 #include <random>
+#include <vector>
 #include "european_option.hpp"
 #include "black_scholes_model.hpp"
 #include "pricer_engine.hpp"
 #include "utils.hpp"
+#include "portfolio.hpp"
 
 int main() {
     // Black-Scholes parameters
@@ -62,6 +64,42 @@ int main() {
 
     double z = quantile(call_distribuz, .025);
     printf("Quantile %.5f",z);
-    
+    printf("\n");
+    printf("Testing porfolio class\n");
+
+    std::vector<double> weights = {0.5, 0.5};
+
+    // std::vector<european_option> assets(call, put);
+
+    std::vector<std::shared_ptr<european_option>> assets;
+    assets.push_back(std::make_shared<EuroCall>(K, T));
+    assets.push_back(std::make_shared<EuroPut>(K, T));
+
+    portfolio my_portfolio(assets, weights);
+
+    // Underlying prices for each asset
+    double underlyings[2] = {S0, S0};
+    black_scholes_model models[2]; 
+    models[0] = model; // Use the mu/sigma defined earlier
+    models[1] = model;
+
+    Matrix P_sim = my_portfolio.simulate(models, underlyings, T1, n_steps, N, gen);
+    // P_sim.print();
+
+    // -------------------------
+    // Compute VaR and ES
+    // -------------------------
+    double q = 0.95; // 5% quantile
+
+    double portfolio_value = my_portfolio.evaluate(models, underlyings, 0.0);
+    double portfolio_var = my_portfolio.VaR(q, models, underlyings, T1, n_steps, N, gen);
+    double portfolio_es  = my_portfolio.ES(q, models, underlyings, T1, n_steps, N, gen);
+
+    printf("Portfolio value : %.5f", portfolio_value);
+
+    std::cout << "\nPortfolio risk metrics (5% quantile):\n";
+    std::cout << "VaR : " << portfolio_var << "\n";
+    std::cout << "ES  : " << portfolio_es << "\n";
+
     return 0;
 }

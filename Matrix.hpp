@@ -31,6 +31,7 @@ public:
     Matrix operator+(const double); // sum operator between a matrix and a number
     Matrix operator-(const Matrix&); // difference operator between matrices
     Matrix operator-(const double); // difference operator between a matrix and a number
+    Matrix operator*(const double); // multiplication by scalar
 
     // Matrix operations
     Matrix dot(const Matrix&); // matrix multiplication

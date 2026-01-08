@@ -189,6 +189,19 @@ Matrix Matrix::operator-(const double x) {
     return result;
 }
 
+Matrix Matrix::operator*(const double x) {
+    // assumes dimensions match — you can add checks!
+
+    Matrix result(n_rows, n_cols);
+    for (int i = 0; i < n_rows; ++i) {
+        for (int j = 0; j < n_cols; ++j) {
+            double val = this->get_element(i, j) * x;
+            result.set_element(val, i, j);
+        }
+    }
+    return result;
+}
+
 
 // Matrix operations
 
